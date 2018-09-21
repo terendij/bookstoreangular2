@@ -1,0 +1,19 @@
+<p *ngIf="error">Erreur : {{ error | json }}</p>
+
+<ng-container *ngIf="!error">
+  <table style="width:100%">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Titre</th>
+        <th>Auteur</th>
+        <th>Prix</th>
+        <th>Note</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of booksList$ | async" class="app-catalog-list-item" [book]="book"></tr>
+    </tbody>
+  </table>
+</ng-container>

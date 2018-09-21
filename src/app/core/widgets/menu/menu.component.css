@@ -1,0 +1,29 @@
+.menu {
+  display: block;
+}
+
+nav {
+  display: inline-block;
+}
+
+nav a {
+  margin: 10px;
+  padding: 3px;
+  text-decoration: none;
+  border-bottom: 2px solid grey;
+  color: grey;
+}
+
+nav a.active {
+  border-bottom: 2px solid papayawhip;
+  color: papayawhip;
+}
+
+h1 {
+  display: inline-block;
+  margin-left: 5em;
+}
+
+.toggleMenu {
+  background-color: #afb1b3;
+}

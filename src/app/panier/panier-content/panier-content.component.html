@@ -1,0 +1,51 @@
+<ng-template #empty>
+  <div style="text-align: center">Votre panier est vide</div>
+</ng-template>
+
+
+<table style="width:100%" *ngIf="!panier.isEmpty(); else empty">
+  <thead>
+  <tr>
+    <th></th>
+    <th>Titre</th>
+    <th>Prix unitaire</th>
+    <th>Quantité</th>
+    <th>Montant</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let row of panier.panier.liste">
+    <td>
+      <div class="photo">
+        <img [src]="row.book.image" [routerLink]="['/catalog', 'book', row.book.id]">
+      </div>
+    </td>
+    <td>{{row.book.title}}</td>
+    <td>{{row.book.price | currency: 'EUR'}}</td>
+    <td>
+      <input type="number" name="montantligne" min="0" [(ngModel)]="row.quantite">
+    </td>
+    <td>{{row.montant | currency: 'EUR'}}</td>
+    <td>
+      <div class="photo">
+        <img src="../../../assets/icons/remove-from-cart.png" title="Supprimer la ligne" (click)="deleteRowToCart(row)">
+      </div>
+    </td>
+  </tr>
+  </tbody>
+  <tfoot>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><div style="text-align: right">TOTAL</div></td>
+    <td>{{panier.panier.montant | currency: 'EUR'}}</td>
+    <td>
+      <div class="photo">
+        <img src="../../../assets/icons/buy.png" title="Commander">
+      </div>
+    </td>
+  </tr>
+  </tfoot>
+</table>

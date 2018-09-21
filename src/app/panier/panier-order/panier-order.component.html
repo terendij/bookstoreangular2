@@ -1,0 +1,107 @@
+<h2>Template Driven Form</h2>
+
+<div class="debug">
+  <pre>{{data |json}}</pre>
+  <p><button (click)="logFormInfo()">Log forminfo</button></p>
+</div>
+
+<form #formInfo="ngForm"
+      [class.submitted]="formInfo.submitted"
+      (ngSubmit)="formInfo.valid && onSubmit()">
+
+  <fieldset ngModelGroup="identity">
+    <legend>Identité</legend>
+
+    <app-fields label="Prénom">
+      <input type="text" name="prenom"
+             [(ngModel)]="data.identity.firstname">
+    </app-fields>
+
+    <app-fields label="*Nom">
+      <input type="text" name="nom"
+           #nomInfo="ngModel"
+           [(ngModel)]="data.identity.lastname"
+           required minlength="2">
+    </app-fields>
+
+    <app-fields label="Email">
+      <input type="email" name="email"
+             [(ngModel)]="data.identity.email"
+             ngModel email>
+    </app-fields>
+
+    <app-fields label="Téléphone">
+      <input type="text" name="phone"
+             [(ngModel)]="data.identity.phone">
+    </app-fields>
+
+  </fieldset>
+
+  <fieldset ngModelGroup="shipping">
+    <legend>Adresse de livraison</legend>
+
+    <app-fields label="Numéro et rue">
+      <input type="text" name="street"
+             [(ngModel)]="data.shipping.street">
+    </app-fields>
+
+    <app-fields label="*Code postal">
+      <input type="text" name="zip"
+             #zipInfo="ngModel"
+             [(ngModel)]="data.shipping.zipcode"
+             required pattern="[0-9]{4,5}">
+    </app-fields>
+
+    <app-fields label="*Ville">
+      <input type="text" name="city"
+             #cityInfo="ngModel"
+             [(ngModel)]="data.shipping.city"
+             required>
+    </app-fields>
+
+    <app-fields label="Pays">
+      <input type="text" name="country"
+             [(ngModel)]="data.shipping.country">
+    </app-fields>
+
+  </fieldset>
+
+  <p>
+    <label><input type="checkbox" name="distinctBilling" [(ngModel)]="data.distinctBilling">&nbsp;Adresse de facturation différente</label>
+  </p>
+
+  <fieldset gModelGroup="billing" *ngIf="data.distinctBilling">
+    <legend>Adresse de facturation</legend>
+
+    <app-fields label="Numéro et rue">
+      <input type="text" name="streetbilling"
+             [(ngModel)]="data.billing.street">
+    </app-fields>
+
+    <app-fields label="*Code postal">
+      <input type="text" name="zipbilling"
+             #zipInfo="ngModel"
+             [(ngModel)]="data.billing.zipcode"
+             required pattern="[0-9]{4,5}">
+    </app-fields>
+
+    <app-fields label="*Ville">
+      <input type="text" name="citybilling"
+             #cityInfo="ngModel"
+             [(ngModel)]="data.billing.city"
+             required>
+    </app-fields>
+
+    <app-fields label="Pays">
+      <input type="text" name="countrybilling"
+             [(ngModel)]="data.billing.country">
+    </app-fields>
+
+  </fieldset>
+
+  <p>
+    <button type="submit" [disabled]="formInfo.invalid && formInfo.submitted">Envoyer</button>
+  </p>
+
+
+</form>

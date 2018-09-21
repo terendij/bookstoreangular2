@@ -1,0 +1,15 @@
+<td>
+  <div class="photo">
+    <img [src]="book.image" [routerLink]="['/catalog', 'book', book.id]">
+  </div>
+</td>
+<td>{{book.title}}</td>
+<td>{{book.author}}</td>
+<td>{{book.price | currency: 'EUR'}}</td>
+<td>
+  <app-rating [(rating)]="book.rating" ></app-rating>&nbsp;
+  <input type="number" min="0" max="5" [(ngModel)]="book.rating">
+</td>
+<td>
+  <app-buy-book [book]="book"></app-buy-book>
+</td>

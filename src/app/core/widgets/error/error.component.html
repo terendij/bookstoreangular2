@@ -1,0 +1,9 @@
+<span class="error" *ngIf="myNgModel.invalid && (myNgModel.touched || form?.submitted)">
+  Erreur :
+  <span *ngIf="myNgModel.hasError('required')">Ce champs est obligatoire</span>
+  <span *ngIf="myNgModel.hasError('minlength')">Il faut au moins {{myNgModel.errors['minlength'].requiredLength}} caractère(s)</span>
+  <span *ngIf="myNgModel.hasError('pattern')">Le format est incorrect ({{myNgModel.errors['pattern'].requiredPattern}})</span>
+  <span *ngIf="myNgModel.hasError('zipcode')">Le code postal est invalide</span>
+  <span *ngIf="myNgModel.hasError('email')">email format : bbb@aa.com</span>
+  <span *ngIf="myNgModel.hasError('domain')">Domaine attendu  : {{myNgModel.errors['domain'].requiredDomain}}, domaine reçu : {{myNgModel.errors['domain'].actualDomain}}</span>
+</span>

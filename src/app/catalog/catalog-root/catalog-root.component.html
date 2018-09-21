@@ -1,0 +1,9 @@
+  <!--div style="text-align: right">
+    <ng-template #empty>
+      <pre>Votre panier est vide <img src="../../../assets/icons/empty-cart.png"></pre>
+    </ng-template>
+
+    <pre *ngIf="!panier.isEmpty(); else empty" style="vertical-align: middle">({{panier.panier.quantite}} art.) Total : <b style="color: white">{{panier.panier.montant | currency: 'EUR'}} <img src="../../../assets/icons/cart.png"></b></pre>
+    <mat-icon matBadge="22" matBadgePosition="above after">home</mat-icon>
+  </div-->
+  <router-outlet></router-outlet>

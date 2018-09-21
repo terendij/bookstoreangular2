@@ -1,0 +1,8 @@
+<span (mouseleave)="onLeave()">
+  <span style="text-align: center" *ngFor="let full of tabEtoiles; index as i"
+        (click)="updateRate(i)"
+        (mouseenter)="onEnter(i)">
+    <ng-container *ngIf="full">★</ng-container>
+    <ng-container *ngIf="!full">☆</ng-container>
+  </span>
+</span>

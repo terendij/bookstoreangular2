@@ -1,0 +1,12 @@
+<div style="margin-right: 5px">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span [routerLink]="'/catalog'" style="cursor: pointer">Book Store</span>
+      <span class="example-spacer"></span>
+      <app-panier-infos class="example-icon"></app-panier-infos>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <br>
+  <app-menu></app-menu>
+  <router-outlet></router-outlet>
+</div>
