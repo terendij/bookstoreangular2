@@ -1,5 +1,5 @@
 <ng-template #empty>
-  <div style="text-align: center">Votre panier est vide</div>
+  <div style="text-align: center">Votre panier est vide <button (click)="orderCart()">Test guard</button></div>
 </ng-template>
 
 
@@ -15,18 +15,18 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let row of panier.panier.liste">
+  <tr *ngFor="let row of panier.panier.liste" class="cart-row">
     <td>
       <div class="photo">
         <img [src]="row.book.image" [routerLink]="['/catalog', 'book', row.book.id]">
       </div>
     </td>
-    <td>{{row.book.title}}</td>
-    <td>{{row.book.price | currency: 'EUR'}}</td>
-    <td>
+    <td class="row-title">{{row.book.title}}</td>
+    <td class="row-price">{{row.book.price | currency: 'EUR'}}</td>
+    <td class="row-quantity">
       <input type="number" name="montantligne" min="0" [(ngModel)]="row.quantite">
     </td>
-    <td>{{row.montant | currency: 'EUR'}}</td>
+    <td class="row-amount">{{row.montant | currency: 'EUR'}}</td>
     <td>
       <div class="photo">
         <img src="../../../assets/icons/remove-from-cart.png" title="Supprimer la ligne" (click)="deleteRowToCart(row)">
@@ -40,10 +40,10 @@
     <td></td>
     <td></td>
     <td><div style="text-align: right">TOTAL</div></td>
-    <td>{{panier.panier.montant | currency: 'EUR'}}</td>
+    <td class="row-tot-amount">{{panier.panier.montant | currency: 'EUR'}}</td>
     <td>
       <div class="photo">
-        <img src="../../../assets/icons/buy.png" title="Commander">
+        <img src="../../../assets/icons/buy.png" title="Commander" (click)="orderCart()">
       </div>
     </td>
   </tr>

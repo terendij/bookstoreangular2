@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Book, JsonBook} from "../model/book";
 import {Observable} from "rxjs";
@@ -11,11 +11,12 @@ export class CatalogService {
 
   list$: Observable<Book[]>; // conserver les livres à la première souscription
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private ngZone: NgZone) {
     this.load();
-    setInterval(() => {
-      this.load();
-    },15 * 1000); // ==> définit une intervale pour recharger les livres
+    this.ngZone.runOutsideAngular(() =>
+      setInterval(() => {
+        this.ngZone.run(() => this.load());
+      },15 * 1000)); // ==> définit une intervale pour recharger les livres)
   }
 
   getBooks(): Observable<Book[]> {

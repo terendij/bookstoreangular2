@@ -9,6 +9,8 @@ import {MatBadgeModule, MatButtonToggleModule, MatIconModule, MatMenuModule, Mat
 import { PanierInfosComponent } from './panier-infos/panier-infos.component';
 import { ErrorComponent } from './error/error.component';
 import { FieldsComponent } from './fields/fields.component';
+import {ZipcodeValidatorDirective} from "./zipcode-validator.directive";
+import {EmailValidatorDirective} from "./email-validator.directive";
 
 @NgModule({
   imports: [
@@ -27,6 +29,8 @@ import { FieldsComponent } from './fields/fields.component';
     BuyBookComponent,
     PanierInfosComponent,
     ErrorComponent,
+    ZipcodeValidatorDirective,
+    EmailValidatorDirective,
     FieldsComponent
   ],
   exports: [
@@ -36,6 +40,8 @@ import { FieldsComponent } from './fields/fields.component';
     EtoilePipe,
     PanierInfosComponent,
     ErrorComponent,
+    ZipcodeValidatorDirective,
+    EmailValidatorDirective,
     FieldsComponent
   ]
 })

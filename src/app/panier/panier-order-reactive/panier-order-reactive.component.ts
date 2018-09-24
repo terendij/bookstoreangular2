@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AppValidators} from "../../core/validators/app-validators";
 
 @Component({
@@ -17,20 +17,18 @@ export class PanierOrderReactiveComponent implements OnInit {
   distinctBilling: FormControl;
   billing: FormGroup;
 
-  constructor() { }
-
   ngOnInit() {
-    this.distinctBilling = new FormControl(false);
-    this.identity = new FormGroup({
-      firstName: new FormControl(),
-      lastName: new FormControl('', {
+    this.distinctBilling = this.fb.control(false);
+    this.identity = this.fb.group({
+      firstName: '',
+      lastName: ['', {
         validators: [
           Validators.required,
           Validators.minLength(2)
         ]
-      }),
-      email: new FormControl('', AppValidators.email('sada.fr')),
-      phone: new FormControl()
+      }],
+      email: ['', AppValidators.email('sada.fr')],
+      phone: ''
     });
     this.shipping = this.buildAdresse();
     this.billing = this.buildAdresse();
@@ -49,6 +47,10 @@ export class PanierOrderReactiveComponent implements OnInit {
       },
       distinctBilling: false
     });
+  }
+
+  constructor(private fb: FormBuilder){
+
   }
 
   private buildAdresse(): FormGroup{

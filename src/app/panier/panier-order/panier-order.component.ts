@@ -1,19 +1,26 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Title} from "@angular/platform-browser";
-import {NgForm} from "@angular/forms";
+import {NgForm, NgModel} from "@angular/forms";
+import {debounceTime, distinctUntilChanged, filter, switchMap} from "rxjs/operators";
+import {CountryService} from "../../core/services/country.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-panier-order',
   templateUrl: './panier-order.component.html',
   styleUrls: ['./panier-order.component.css']
 })
-export class PanierOrderComponent implements OnInit {
+export class PanierOrderComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('shippingCountryInfo') shippingCountryInfo: NgModel;
 
   //View query
   @ViewChild('formInfo') formInfo: NgForm;
 
   //Variante => On récupère le premier formulaire trouvé
   @ViewChild(NgForm) formInfo2: NgForm;
+
+  countryList$: Observable<string[]>;
 
   data = {
     identity: {
@@ -37,7 +44,7 @@ export class PanierOrderComponent implements OnInit {
     distinctBilling: false
   };
 
-  constructor(private title: Title) { }
+  constructor(private title: Title, private serviceCountry: CountryService) { }
 
   ngOnInit() {
     this.title.setTitle('Commande');
@@ -49,5 +56,16 @@ export class PanierOrderComponent implements OnInit {
 
   logFormInfo() {
     console.log(this.formInfo);
+  }
+
+  ngAfterViewInit(): void {
+    this.countryList$ = this.shippingCountryInfo.valueChanges.pipe(
+      filter(name => name && name.trim().length >= 2),
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(
+        name => this.serviceCountry.search(name)
+      )
+    );
   }
 }

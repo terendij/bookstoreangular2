@@ -27,7 +27,7 @@
     <app-fields label="Email">
       <input type="email" name="email"
              [(ngModel)]="data.identity.email"
-             ngModel email>
+             domain="sada.fr">
     </app-fields>
 
     <app-fields label="Téléphone">
@@ -49,7 +49,7 @@
       <input type="text" name="zip"
              #zipInfo="ngModel"
              [(ngModel)]="data.shipping.zipcode"
-             required pattern="[0-9]{4,5}">
+             required zipcode>
     </app-fields>
 
     <app-fields label="*Ville">
@@ -61,7 +61,13 @@
 
     <app-fields label="Pays">
       <input type="text" name="country"
-             [(ngModel)]="data.shipping.country">
+             [(ngModel)]="data.shipping.country"
+             #shippingCountryInfo="ngModel"
+             list="shippingCountrylist"
+      >
+      <datalist id="shippingCountrylist">
+        <option *ngFor="let country of countryList$ | async">{{country}}</option>
+      </datalist>
     </app-fields>
 
   </fieldset>
@@ -82,7 +88,7 @@
       <input type="text" name="zipbilling"
              #zipInfo="ngModel"
              [(ngModel)]="data.billing.zipcode"
-             required pattern="[0-9]{4,5}">
+             required zipcode>
     </app-fields>
 
     <app-fields label="*Ville">
